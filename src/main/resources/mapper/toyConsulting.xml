@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="toyReviewDao">
+    <!-- 按照ID查询-->
+    <select id="getToyReviewById" parameterType="Integer" resultType="bean.ToyReview">
+        SELECT * FROM toyReview where id = #{id}
+    </select>
+
+
+    <!--按照ID删除评论 -->
+    <delete id="deleteToyReviewById" parameterType="Integer" >
+        DELETE FROM toyReview WHERE id=#{id}
+    </delete>
+
+    <!--按照商品ID和评论时间查询评论-->
+    <select id="selectUserBySexAndUsername" parameterType="bean.ToyReview" resultType="bean.ToyReview">
+        select * FROM  toyReview
+        <where>
+            toyId = #{toyId}
+            <if test="commentDate != null and commentDate != ''">
+                and commentDate = #{commentDate}
+            </if>
+        </where>
+    </select>
+</mapper>
